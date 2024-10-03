@@ -41,13 +41,13 @@ function processLogs(logs) {
 // Ler o arquivo de logs
 fs.readFile(logFilePath, 'utf8', (err, data) => {
     if (err) {
-        // console.error('Erro ao ler o arquivo de logs:', err);
+         console.error('Erro ao ler o arquivo de logs:', err);
         return;
     }
 
     const logAnalysis = processLogs(data);
-    // console.log('Usuários online:', logAnalysis.onlineUsers);
-    // console.log('Total de usuários online:', logAnalysis.totalOnline);
+     console.log('Usuários online:', logAnalysis.onlineUsers);
+     console.log('Total de usuários online:', logAnalysis.totalOnline);
 });
 
 // Função para contar usuários únicos
@@ -56,9 +56,9 @@ function countUniqueUsers() {
         const logs = fs.readFileSync(logFilePath , 'utf-8');
         const logAnalysis = processLogs(logs);
         totalUsers = logAnalysis.totalOnline; // Use totalUniqueEmails para obter o total
-        // console.log(`Total de usuários online: ${totalUsers}`);
+         console.log(`Total de usuários online: ${totalUsers}`);
     } catch (error) {
-        // console.error('Erro ao ler o arquivo de log:', error);
+         console.error('Erro ao ler o arquivo de log:', error);
     }
 }
 
@@ -69,11 +69,11 @@ function cleanOldLogs() {
         const lines = logs.split('\n').filter(line => line.trim() !== '');
 
         if (lines.length === 0) {
-            // console.log('Nenhum log para limpar.');
+             console.log('Nenhum log para limpar.');
             return;
         }
 
-        // console.log('Iniciando a limpeza de logs...');
+         console.log('Iniciando a limpeza de logs...');
 
         // Captura a data e hora da última linha
         const lastLine = lines[lines.length - 1];
@@ -81,11 +81,11 @@ function cleanOldLogs() {
         const lastTime = lastLine.split(' ')[1]; // Pega o tempo
 
         if (!lastTime) {
-            // console.log('Erro: O tempo da última linha não foi encontrado.');
+             console.log('Erro: O tempo da última linha não foi encontrado.');
             return;
         }
         
-        // console.log(`Último log encontrado: ${lastTimestamp} ${lastTime}`);
+         console.log(`Último log encontrado: ${lastTimestamp} ${lastTime}`);
 
         // Converte o tempo da última linha para um objeto Date
         const [lastYear, lastMonth, lastDay] = lastTimestamp.split('/').map(Number);
@@ -96,7 +96,7 @@ function cleanOldLogs() {
 
         // Diminui 1 hora no valor
         lastLogDate.setHours(lastLogDate.getHours() - 1);
-        // console.log(`Data limite para manter os logs (1 hora antes): ${lastLogDate}`);
+         console.log(`Data limite para manter os logs (1 hora antes): ${lastLogDate}`);
 
         // Encontrar a linha correspondente ao tempo diminuído
         const cutoffIndex = lines.findIndex(line => {
@@ -111,19 +111,19 @@ function cleanOldLogs() {
         // Se não encontrar a linha correspondente, usar o último log
         const indexToKeep = cutoffIndex === -1 ? lines.length - 1 : cutoffIndex;
 
-        // console.log(`Manter logs a partir da linha: ${indexToKeep}`);
+         console.log(`Manter logs a partir da linha: ${indexToKeep}`);
 
         // Filtrar logs para manter
         const recentLogs = lines.slice(indexToKeep);
 
-        // console.log(`Total de logs a serem mantidos: ${recentLogs.length}`);
-        // console.log(`Total de logs a serem removidos: ${lines.length - recentLogs.length}`);
+         console.log(`Total de logs a serem mantidos: ${recentLogs.length}`);
+         console.log(`Total de logs a serem removidos: ${lines.length - recentLogs.length}`);
 
         // Escrever os logs filtrados de volta no arquivo
         fs.writeFileSync(logFilePath , recentLogs.join('\n'), 'utf-8');
-        // console.log('Logs antigos removidos, mantendo apenas os logs a partir da linha correspondente.');
+         console.log('Logs antigos removidos, mantendo apenas os logs a partir da linha correspondente.');
     } catch (error) {
-        // console.error('Erro ao limpar logs:', error);
+         console.error('Erro ao limpar logs:', error);
     }
 }
 
