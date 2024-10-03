@@ -1,12 +1,12 @@
 #!/bin/bash
 
 mkdir /root/online_v2_api
-wget -O /root/online_v2_api/onlines_api 
-chmod +x /root/online_v2_api/onlines_api
+wget -O /root/online_v2_api/onlines_v2_api https://github.com/TelksBr/v2ray_online_monitor/raw/refs/heads/main/v2ray_monitor
+chmod +x /root/online_v2_api/onlines_v2_api
 
 SERVICE_NAME="api-v2-server"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}.service"
-BINARY_PATH="/root/online_v2_api/onlines_api"
+BINARY_PATH="/root/online_v2_api/onlines_v2_api"
 WORKING_DIR=/root"/online_v2_api"
 USER="root"  # Substitua pelo nome do usuário que executará o serviço
 GROUP="root" # Substitua pelo grupo do usuário
